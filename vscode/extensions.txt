@@ -1,0 +1,17 @@
+bungcip.better-toml
+ms-azuretools.vscode-docker
+dracula-theme.theme-dracula
+editorconfig.editorconfig
+dbaeumer.vscode-eslint
+waderyan.gitblame
+eamodio.gitlens
+ms-vscode.go
+znck.grammarly
+prisma.vscode-graphql
+esbenp.prettier-vscode
+ms-python.python
+cssho.vscode-svgviewer
+mauve.terraform
+vscodevim.vim
+vscode-icons-team.vscode-icons
+redhat.vscode-yaml
