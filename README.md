@@ -10,6 +10,7 @@ __Warning:__ This is not your typical dotfiles repository, it's more things I us
 
 - [vscode](https://code.visualstudio.com/) - code editor
 - [insomnia](https://insomnia.rest/) - REST client
+- [tmux](https://github.com/tmux/tmux)
 
 ## Languages
 
