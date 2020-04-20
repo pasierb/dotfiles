@@ -25,7 +25,16 @@ def installVSCodeExtensions():
     subprocess.run(['zsh', os.path.join(cwd, 'vscode/extensions')])
 
 if __name__ == "__main__":
-    print('Install vim-plug...')
+    print('Installing nvm...')
+    subprocess.run([
+        'curl',
+        '-o-',
+        'https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh',
+        '|',
+        'bash'
+    ])
+
+    print('Installing vim-plug...')
     subprocess.run([
         'curl',
         '-fLo',

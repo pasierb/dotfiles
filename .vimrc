@@ -27,6 +27,7 @@ Plug 'preservim/nerdtree'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'leafgarland/typescript-vim'
 
 call plug#end()
 
