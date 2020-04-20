@@ -25,9 +25,17 @@ def installVSCodeExtensions():
     subprocess.run(['zsh', os.path.join(cwd, 'vscode/extensions')])
 
 if __name__ == "__main__":
+    print('Install vim-plug...')
+    subprocess.run([
+        'curl',
+        '-fLo',
+        os.path.join(Path.home(), '.vim/autoload/plug.vim'),
+        '--create-dirs',
+        'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    ])
+
     print('Linking dotfiles...')
     linkDotfiles()
 
     print('Installing vscode extensions...')
     installVSCodeExtensions()
-
