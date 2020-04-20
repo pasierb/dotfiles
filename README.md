@@ -23,6 +23,13 @@
 
 ## Installation
 
+Install prerequisites:
+- curl
+- python3
+- zsh
+- vscode
+- tmux
+
 ```bash
 git clone git@github.com:pasierb/dotfiles.git
 python3 ./bootstrap.py
