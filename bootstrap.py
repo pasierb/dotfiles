@@ -24,8 +24,16 @@ def linkDotfiles():
 def installVSCodeExtensions():
     subprocess.run(['zsh', os.path.join(cwd, 'vscode/extensions')])
 
-if __name__ == "__main__":
-    print('Installing nvm...')
+def installVimPlug():
+    subprocess.run([
+        'curl',
+        '-fLo',
+        os.path.join(Path.home(), '.vim/autoload/plug.vim'),
+        '--create-dirs',
+        'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    ])
+
+def installNVM():
     subprocess.run([
         'curl',
         '-o-',
@@ -34,14 +42,12 @@ if __name__ == "__main__":
         'bash'
     ])
 
+if __name__ == "__main__":
+    print('Installing nvm...')
+    installNVM()
+
     print('Installing vim-plug...')
-    subprocess.run([
-        'curl',
-        '-fLo',
-        os.path.join(Path.home(), '.vim/autoload/plug.vim'),
-        '--create-dirs',
-        'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-    ])
+    installVimPlug()
 
     print('Linking dotfiles...')
     linkDotfiles()
