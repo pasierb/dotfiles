@@ -106,3 +106,7 @@ alias gd="git diff"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
+# Local config
+[[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
+
