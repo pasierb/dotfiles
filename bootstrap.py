@@ -9,17 +9,28 @@ cwd = os.path.dirname(os.path.realpath(__file__))
 cwd_path = Path(cwd)
 
 def linkDotfiles():
-    dotfiles = map(lambda i: Path(os.path.join(cwd, i)), ['.zshrc', '.vimrc', '.tmux.conf'])
-    for p in dotfiles:
-        print('linking {0}'.format(p.name))
-        fp = Path(os.path.join(Path.home(), p.name))
+    dotfiles = [
+        ('zshrc', '.zshrc'),
+        ('vimrc', '.vimrc'),
+        ('tmux.conf', '.tmux.conf'),
+        ('vscode/settings.json', '.config/Code/User/settings.json')
+    ]
 
-        if fp.exists() and fp.is_symlink():
-            fp.unlink()
-        elif fp.exists() and not fp.is_symlink():
-            shutil.move(fp, Path(str(p) + '.back'))
+    for it in dotfiles:
+        src = Path(os.path.join(cwd_path, it[0]))
+        dest = Path(os.path.join(Path.home(), it[1]))
 
-        fp.symlink_to(p)
+        print('linking {0}'.format(dest.name))
+
+        if dest.exists() and dest.is_symlink():
+            print('{0}: symlink exist, unlinking'.format(str(dest)))
+            dest.unlink()
+
+        if dest.exists() and not dest.is_symlink():
+            print('{0}: file exist, backing up'.format(str(dest)))
+            shutil.move(dest, Path(str(dest) + '.back'))
+
+        dest.symlink_to(src)
 
 def installVSCodeExtensions():
     subprocess.run(['zsh', os.path.join(cwd, 'vscode/extensions')])
@@ -53,4 +64,4 @@ if __name__ == "__main__":
     linkDotfiles()
 
     print('Installing vscode extensions...')
-    installVSCodeExtensions()
+    # installVSCodeExtensions()

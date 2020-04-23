@@ -1,0 +1,53 @@
+{
+    "window.zoomLevel": 0,
+    "workbench.colorTheme": "Dracula",
+    "workbench.iconTheme": "vscode-icons",
+    "editor.fontLigatures": true,
+    "editor.fontFamily": "'Cascadia Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "editor.minimap.enabled": false,
+    "[javascript]": {
+        "editor.tabSize": 2,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "[javascriptreact]": {
+        "editor.tabSize": 2
+    },
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "[typescript]": {
+        "editor.tabSize": 2,
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[json]": {
+        "editor.tabSize": 2,
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "go.formatTool": "goimports",
+    "go.useLanguageServer": true,
+    "vsicons.dontShowNewVersionMessage": true,
+    "breadcrumbs.enabled": false,
+    "grammarly.username": "mpasierbski@gmail.com",
+    "terraform.indexing": {
+        "enabled": true,
+        "liveIndexing": false,
+        "delay": 500,
+        "exclude": [
+            ".terraform/**/*",
+            "**/.terraform/**/*"
+        ]
+    },
+    "terraform.languageServer": {
+        "enabled": false,
+        "args": []
+    },
+    "grammarly.userWords": [],
+    "vim.useSystemClipboard": true,
+    "vim.commandLineModeKeyBindingsNonRecursive": [],
+    "vim.handleKeys": {
+        "<C-d>": false,
+        "<C-f>": false
+    }
+}
