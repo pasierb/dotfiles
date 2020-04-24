@@ -64,4 +64,4 @@ if __name__ == "__main__":
     linkDotfiles()
 
     print('Installing vscode extensions...')
-    # installVSCodeExtensions()
+    installVSCodeExtensions()
