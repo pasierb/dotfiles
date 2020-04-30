@@ -2,7 +2,7 @@
 
 ## Theme
 
-- [dracula](https://draculatheme.com/) theme
+- [dracula](https://draculatheme.com/) theme :heart:
 
 ## Shell
 
