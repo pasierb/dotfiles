@@ -25,6 +25,7 @@
 
 Install prerequisites:
 - curl
+- git
 - python3
 - zsh
 - vscode
