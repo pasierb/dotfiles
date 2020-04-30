@@ -7,8 +7,20 @@ from pathlib import Path
 
 cwd = os.path.dirname(os.path.realpath(__file__))
 cwd_path = Path(cwd)
+oh_my_zsh_path = Path(os.path.join(Path.home(), '.oh-my-zsh'))
 
-def linkDotfiles():
+def cloneOrPull(repo_url, target_path):
+    if target_path.exists():
+        subprocess.run(['git', 'pull'], cwd=target_path)
+    else:
+        subprocess.run([
+            'git',
+            'clone',
+            repo_url,
+            target_path
+        ])
+
+def linkFiles():
     dotfiles = [
         (Path(os.path.join(cwd_path, 'zshrc')), '.zshrc'),
         (Path(os.path.join(cwd_path, 'vimrc')), '.vimrc'),
@@ -49,37 +61,18 @@ def installNVM():
     subprocess.run([
         'curl',
         '-o-',
-        'https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh',
-        '|',
-        'bash'
+        'https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash',
     ])
 
 def installTPM():
     tpm_path = Path(os.path.join(Path.home(), '.tmux/plugins/tpm'))
 
-    if tpm_path.exists():
-        subprocess.run(['git', 'pull'], cwd=tpm_path)
-    else:
-        subprocess.run([
-            'git',
-            'clone',
-            'https://github.com/tmux-plugins/tpm',
-            tpm_path
-        ])
+    cloneOrPull(repo_url='https://github.com/tmux-plugins/tpm', target_path=tpm_path)
 
 def installZshDraculaTheme():
-    oh_my_zsh_path = Path(os.path.join(Path.home(), '.oh-my-zsh'))
     theme_path = Path(os.path.join(oh_my_zsh_path, 'custom/themes/zsh'))
 
-    if theme_path.exists():
-        subprocess.run(['git', 'pull'], cwd=theme_path)
-    else:
-        subprocess.run([
-            'git',
-            'clone',
-            'git@github.com:dracula/zsh.git',
-            theme_path
-        ])
+    cloneOrPull(repo_url='git@github.com:dracula/zsh.git', target_path=theme_path)
 
 if __name__ == "__main__":
     print('Installing nvm...')
@@ -95,7 +88,7 @@ if __name__ == "__main__":
     installZshDraculaTheme()
 
     print('Linking dotfiles...')
-    linkDotfiles()
+    linkFiles()
 
     print('Installing vscode extensions...')
     installVSCodeExtensions()
