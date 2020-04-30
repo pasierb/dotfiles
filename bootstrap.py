@@ -53,12 +53,23 @@ def installNVM():
         'bash'
     ])
 
+def installTPM():
+    subprocess.run([
+        'git',
+        'clone',
+        'https://github.com/tmux-plugins/tpm',
+        os.path.join(Path.home(), '.tmux/plugins/tpm')
+    ])
+
 if __name__ == "__main__":
     print('Installing nvm...')
     installNVM()
 
     print('Installing vim-plug...')
     installVimPlug()
+
+    print('Installing tpm...')
+    installTPM()
 
     print('Linking dotfiles...')
     linkDotfiles()

@@ -34,3 +34,11 @@ Install prerequisites:
 git clone git@github.com:pasierb/dotfiles.git
 python3 ./bootstrap.py
 ```
+
+### tmux
+
+In tmux type `C-a I` to install plugins
+
+### vim
+
+In vim type `:PlugInstall` to install plugins
