@@ -10,14 +10,15 @@ cwd_path = Path(cwd)
 
 def linkDotfiles():
     dotfiles = [
-        ('zshrc', '.zshrc'),
-        ('vimrc', '.vimrc'),
-        ('tmux.conf', '.tmux.conf'),
-        ('vscode/settings.json', '.config/Code/User/settings.json')
+        (Path(os.path.join(cwd_path, 'zshrc')), '.zshrc'),
+        (Path(os.path.join(cwd_path, 'vimrc')), '.vimrc'),
+        (Path(os.path.join(cwd_path, 'tmux.conf')), '.tmux.conf'),
+        (Path(os.path.join(cwd_path, 'vscode/settings.json')), '.config/Code/User/settings.json'),
+        (Path(os.path.join(Path.home(), '.oh-my-zsh/custom/themes/zsh/dracula.zsh-theme')), '.oh-my-zsh/themes/dracula.zsh-theme')
     ]
 
     for it in dotfiles:
-        src = Path(os.path.join(cwd_path, it[0]))
+        src = it[0]
         dest = Path(os.path.join(Path.home(), it[1]))
 
         print('linking {0}'.format(dest.name))
@@ -54,12 +55,31 @@ def installNVM():
     ])
 
 def installTPM():
-    subprocess.run([
-        'git',
-        'clone',
-        'https://github.com/tmux-plugins/tpm',
-        os.path.join(Path.home(), '.tmux/plugins/tpm')
-    ])
+    tpm_path = Path(os.path.join(Path.home(), '.tmux/plugins/tpm'))
+
+    if tpm_path.exists():
+        subprocess.run(['git', 'pull'], cwd=tpm_path)
+    else:
+        subprocess.run([
+            'git',
+            'clone',
+            'https://github.com/tmux-plugins/tpm',
+            tpm_path
+        ])
+
+def installZshDraculaTheme():
+    oh_my_zsh_path = Path(os.path.join(Path.home(), '.oh-my-zsh'))
+    theme_path = Path(os.path.join(oh_my_zsh_path, 'custom/themes/zsh'))
+
+    if theme_path.exists():
+        subprocess.run(['git', 'pull'], cwd=theme_path)
+    else:
+        subprocess.run([
+            'git',
+            'clone',
+            'git@github.com:dracula/zsh.git',
+            theme_path
+        ])
 
 if __name__ == "__main__":
     print('Installing nvm...')
@@ -70,6 +90,9 @@ if __name__ == "__main__":
 
     print('Installing tpm...')
     installTPM()
+
+    print('Installing zsh dracula theme')
+    installZshDraculaTheme()
 
     print('Linking dotfiles...')
     linkDotfiles()
