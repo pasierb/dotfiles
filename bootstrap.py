@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+from typing import List, Tuple
 import subprocess
 import os
 import shutil
@@ -9,7 +10,11 @@ cwd = os.path.dirname(os.path.realpath(__file__))
 cwd_path = Path(cwd)
 oh_my_zsh_path = Path(os.path.join(Path.home(), '.oh-my-zsh'))
 
-def cloneOrPull(repo_url, target_path):
+def cloneOrPull(repo_url: str, target_path: Path):
+    """
+    Clones git repository `repo_url` into `target_path` if it doesn't exist,
+    pulls latest changes otherwise.
+    """
     if target_path.exists():
         subprocess.run(['git', 'pull'], cwd=target_path)
     else:
@@ -20,15 +25,10 @@ def cloneOrPull(repo_url, target_path):
             target_path
         ])
 
-def linkFiles():
-    dotfiles = [
-        (Path(os.path.join(cwd_path, 'zshrc')), '.zshrc'),
-        (Path(os.path.join(cwd_path, 'vimrc')), '.vimrc'),
-        (Path(os.path.join(cwd_path, 'tmux.conf')), '.tmux.conf'),
-        (Path(os.path.join(cwd_path, 'vscode/settings.json')), '.config/Code/User/settings.json'),
-        (Path(os.path.join(Path.home(), '.oh-my-zsh/custom/themes/zsh/dracula.zsh-theme')), '.oh-my-zsh/themes/dracula.zsh-theme')
-    ]
-
+def linkFiles(dotfiles: List[Tuple[Path, str]]):
+    """
+    Creates/updates symlinks to dotfiles
+    """
     for it in dotfiles:
         src = it[0]
         dest = Path(os.path.join(Path.home(), it[1]))
@@ -46,9 +46,15 @@ def linkFiles():
         dest.symlink_to(src)
 
 def installVSCodeExtensions():
+    """
+    Installs VS Code extensions listed in `vscode/extensions`
+    """
     subprocess.run(['zsh', os.path.join(cwd, 'vscode/extensions')])
 
 def installVimPlug():
+    """
+    Installs Vim plug - Vim plugin manager (https://github.com/junegunn/vim-plug)
+    """
     subprocess.run([
         'curl',
         '-fLo',
@@ -58,6 +64,9 @@ def installVimPlug():
     ])
 
 def installNVM():
+    """
+    Installs nvm - Node version manager (https://github.com/nvm-sh/nvm)
+    """
     subprocess.run([
         'curl',
         '-o-',
@@ -65,11 +74,17 @@ def installNVM():
     ])
 
 def installTPM():
+    """
+    Installs tpm - Tmux plugin manager (https://github.com/tmux-plugins/tpm)
+    """
     tpm_path = Path(os.path.join(Path.home(), '.tmux/plugins/tpm'))
 
     cloneOrPull(repo_url='https://github.com/tmux-plugins/tpm', target_path=tpm_path)
 
 def installZshDraculaTheme():
+    """
+    Installs dracula theme for ZSH
+    """
     theme_path = Path(os.path.join(oh_my_zsh_path, 'custom/themes/zsh'))
 
     cloneOrPull(repo_url='git@github.com:dracula/zsh.git', target_path=theme_path)
@@ -88,7 +103,13 @@ if __name__ == "__main__":
     installZshDraculaTheme()
 
     print('Linking dotfiles...')
-    linkFiles()
+    linkFiles([
+        (Path(os.path.join(cwd_path, 'zshrc')), '.zshrc'),
+        (Path(os.path.join(cwd_path, 'vimrc')), '.vimrc'),
+        (Path(os.path.join(cwd_path, 'tmux.conf')), '.tmux.conf'),
+        (Path(os.path.join(cwd_path, 'vscode/settings.json')), '.config/Code/User/settings.json'),
+        (Path(os.path.join(Path.home(), '.oh-my-zsh/custom/themes/zsh/dracula.zsh-theme')), '.oh-my-zsh/themes/dracula.zsh-theme')
+    ])
 
     print('Installing vscode extensions...')
     installVSCodeExtensions()
