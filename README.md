@@ -27,7 +27,7 @@ Install prerequisites:
 - curl
 - git
 - python3
-- zsh
+- zsh + oh-my-zsh
 - vscode
 - tmux
 
