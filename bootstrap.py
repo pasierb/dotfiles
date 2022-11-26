@@ -35,6 +35,10 @@ def linkFiles(dotfiles: List[Tuple[Path, str]]):
 
         print('linking {0}'.format(dest.name))
 
+        if not dest.parent.exists():
+            print('creating parent directory: {0}'.format(str(dest.parent)))
+            dest.parent.mkdir(parents=True, exist_ok=True)
+
         if dest.exists() and dest.is_symlink():
             print('{0}: symlink exist, unlinking'.format(str(dest)))
             dest.unlink()
